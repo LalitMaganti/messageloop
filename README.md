@@ -20,10 +20,14 @@ public class Main {
   public void run() {
     MessageHandler handler = new MessageHandler();
     MessageLoop loop = BlockingQueueMessageLoop.create(handler);
+    loop.start();
 
     // Carry out the reading on the event loop.
     loop.post(READ_JSON, new JsonReader()));
+    
     // Do some more stuff with the loop.
+    
+    loop.shutdown();
   }
 }
 
