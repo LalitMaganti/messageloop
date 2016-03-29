@@ -1,0 +1,12 @@
+apply plugin: 'java'
+
+compileJava {
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+}
+
+dependencies {
+    compile 'org.jetbrains:annotations:15.0'
+
+    testCompile 'junit:junit:4.12'
+}
