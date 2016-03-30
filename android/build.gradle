@@ -22,7 +22,7 @@ android {
 
 dependencies {
     compile 'org.jetbrains:annotations:15.0'
-    compile project(path: ':core')
+    compile project(':core')
 
     testCompile 'junit:junit:4.12'
 }
