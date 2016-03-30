@@ -1,10 +1,11 @@
 package com.tilal6991.messageloop;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Class which implements the {@link MessageLoop} interface using a backing {@link BlockingQueue}.
@@ -33,8 +34,9 @@ public class BlockingQueueMessageLoop implements MessageLoop {
 
     private int mState;
 
-    BlockingQueueMessageLoop(MessageLoop.Handler handler, BlockingQueue<Message> queue,
-                             int maxPoolSize) {
+    BlockingQueueMessageLoop(@Nonnull MessageLoop.Handler handler,
+                             @Nonnull BlockingQueue<Message> queue,
+                             @Nonnegative int maxPoolSize) {
         mHandler = handler;
         mQueue = queue;
         mMaxPoolSize = maxPoolSize;
@@ -49,7 +51,7 @@ public class BlockingQueueMessageLoop implements MessageLoop {
         mState = PRE_START;
     }
 
-    public static MessageLoop create(MessageLoop.Handler handler) {
+    public static MessageLoop create(@Nonnull MessageLoop.Handler handler) {
         return new BlockingQueueMessageLoop(handler, new LinkedBlockingQueue<Message>(), 50);
     }
 
@@ -136,7 +138,7 @@ public class BlockingQueueMessageLoop implements MessageLoop {
         return message;
     }
 
-    private void release(@NotNull Message message) {
+    private void release(@Nonnull Message message) {
         if (poolSize < mMaxPoolSize) {
             message.reset();
 

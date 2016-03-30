@@ -6,10 +6,10 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.concurrent.atomic.AtomicInteger;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Class which implements the {@link MessageLoop} interface using a backing {@link HandlerThread}
@@ -31,7 +31,7 @@ public class AndroidHandlerMessageLoop implements MessageLoop, Handler.Callback 
 
     private Handler mMessageHandler;
 
-    AndroidHandlerMessageLoop(@NotNull MessageLoop.Handler handler, HandlerThread handlerThread) {
+    AndroidHandlerMessageLoop(@Nonnull MessageLoop.Handler handler, @Nonnull HandlerThread handlerThread) {
         mMessageHandler = handler;
         mHandlerThread = handlerThread;
 
@@ -39,7 +39,7 @@ public class AndroidHandlerMessageLoop implements MessageLoop, Handler.Callback 
         mState = new AtomicInteger(PRE_START);
     }
 
-    public static MessageLoop create(MessageLoop.Handler handler) {
+    public static MessageLoop create(@Nonnull MessageLoop.Handler handler) {
         return new AndroidHandlerMessageLoop(handler, new HandlerThread("co.fusionx.relay.MessageLoop"));
     }
 

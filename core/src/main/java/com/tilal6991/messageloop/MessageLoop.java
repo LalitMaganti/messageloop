@@ -1,11 +1,11 @@
 package com.tilal6991.messageloop;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * Class which acts waits for events and dispatches to a handler in a non-blocking fashion. All
  * methods should be thread-safe.
- * <p>
+ * <p/>
  * Note to implementors: This class should be implemented as a self contained event loop which
  * waits for events on a thread and dispatches events to the handler when finished.
  */
