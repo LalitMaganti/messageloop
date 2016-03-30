@@ -1,29 +1,4 @@
-plugins {
-    id "com.jfrog.bintray" version "1.6"
-}
-
 apply plugin: 'java'
-
-bintray {
-    user = project.hasProperty('bintrayUser') ? project.property('bintrayUser') : System.getenv('BINTRAY_USER')
-    key = project.hasProperty('bintraBintrayyApiKey') ? project.property('bintrayApiKey') : System.getenv('BINTRAY_API_KEY')
-    configurations = ['archives']
-
-    pkg {
-        repo = 'jvm'
-        name = 'messageloop'
-        licenses = ['Apache-2.0']
-        vcsUrl = 'https://github.com/tilal6991/messageloop.git'
-        version {
-            name = '0.1.0'
-
-            gpg {
-                sign = true
-                passphrase = project.hasProperty('gpgPassphrase') ? project.property('gpgPassphrase') : System.getenv('GPG_PASSPHRASE')
-            }
-        }
-    }
-}
 
 compileJava {
     sourceCompatibility = 1.6
@@ -35,3 +10,5 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
 }
+
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

@@ -19,6 +19,10 @@ android {
 }
 
 dependencies {
-    testCompile 'junit:junit:4.12'
+    compile 'org.jetbrains:annotations:15.0'
     compile project(path: ':core')
+
+    testCompile 'junit:junit:4.12'
 }
+
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
