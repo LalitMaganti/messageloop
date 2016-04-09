@@ -74,14 +74,23 @@ public class BlockingQueueMessageLoop implements MessageLoop {
 
     @Override
     public boolean post(int type, @Nullable Object obj) {
-        Message message;
+        synchronized (mLock) {
+            return mState != PRE_START && mState != STOPPED && mQueue.offer(obtain(type, obj));
+        }
+    }
+
+    @Override
+    public boolean postOrExecute(int type, @Nullable Object obj) {
         synchronized (mLock) {
             if (mState == PRE_START || mState == STOPPED) {
                 return false;
             }
-            message = obtain(type, obj);
-            return mQueue.offer(message);
+            if (!isOnLoop()) {
+                return mQueue.offer(obtain(type, obj));
+            }
         }
+        mHandler.handle(type, obj);
+        return true;
     }
 
     @Override

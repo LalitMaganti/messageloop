@@ -67,6 +67,20 @@ public class AndroidHandlerMessageLoop implements MessageLoop, Handler.Callback 
     }
 
     @Override
+    public boolean postOrExecute(int type, @Nullable Object obj) {
+        if (!mState.compareAndSet(STARTED, STARTED)) {
+            return false;
+        }
+
+        if (isOnLoop()) {
+            mMessageHandler.handle(type, obj);
+            return true;
+        } else {
+            return post(type, obj);
+        }
+    }
+
+    @Override
     public boolean shutdown() {
         if (!mState.compareAndSet(STARTED, STOPPED)) {
             return false;

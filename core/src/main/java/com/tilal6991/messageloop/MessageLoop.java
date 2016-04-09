@@ -28,7 +28,7 @@ public interface MessageLoop {
     boolean isOnLoop();
 
     /**
-     * Sends a message to the associated handler's [Handler.handle] method.
+     * Sends a message to the associated handler's [Handler.handle] method asynchronously.
      *
      * @param type the type of message to send to the handler.
      * @param obj  an arbitrary object to pass as an extra parameter to the handler.
@@ -36,6 +36,18 @@ public interface MessageLoop {
      * @return whether the post was successful.
      */
     boolean post(int type, @Nullable Object obj);
+
+    /**
+     * Sends a message to the associated handler's [Handler.handle] method asynchronously
+     * if the current thread is not the target thread. If it is, then the handler method will
+     * be executed synchronously.
+     *
+     * @param type the type of message to send to the handler.
+     * @param obj  an arbitrary object to pass as an extra parameter to the handler.
+     *
+     * @return whether the post or execution was successful.
+     */
+    boolean postOrExecute(int type, @Nullable Object obj);
 
     /**
      * Finishes the event loop and frees any held resources. Any messages currently on the loop
