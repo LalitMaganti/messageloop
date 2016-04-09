@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
+    }
+    dependencies {
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.5.3"
+    }
+}
+
 subprojects {
     buildscript {
         repositories {
@@ -11,4 +21,9 @@ subprojects {
 
     group = GROUP
     version = VERSION_NAME
+}
+
+apply plugin: 'io.codearte.nexus-staging'
+nexusStaging {
+    packageGroup = "com.tilal6991"
 }
